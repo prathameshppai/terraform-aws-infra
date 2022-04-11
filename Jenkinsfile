@@ -1,9 +1,9 @@
 node {
     properties([
       parameters([
-        choice(choices: ['DEV, QA, PROD'], name: 'ENV'), 
-        choice(choices: ['Networking, Autoscaling, Database'], name: 'LAYER'), 
-        choice(choices: ['BUILD, DELETE'], name: 'ACTION'), 
+        choice(choices: ['DEV', 'QA', 'PROD'], name: 'ENV'), 
+        choice(choices: ['Networking', 'Autoscaling', 'Database'], name: 'LAYER'), 
+        choice(choices: ['BUILD', 'DELETE'], name: 'ACTION'), 
         booleanParam('CONFIRM')
       ])
     ])
