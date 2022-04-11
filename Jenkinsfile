@@ -9,7 +9,7 @@ node {
     ])
 
     stage('Initialization') {
-      //cleanWs()
+      cleanWs()
       dir("$LAYER") {
           sh 'terraform init'
           sh "terraform workspace new $ENV"
