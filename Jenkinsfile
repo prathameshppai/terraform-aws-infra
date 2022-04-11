@@ -10,7 +10,7 @@ node {
 
     stage('Initialization') {
       //cleanWs()
-      dir($LAYER) {
+      dir("$LAYER") {
           sh 'terraform init'
           sh "terraform workspace new $ENV"
       }
@@ -19,13 +19,13 @@ node {
     if (params.ACTION == 'BUILD') {
         if (!params.CONFIRM) {
           stage('Build Plan') {
-            dir($LAYER) {
+            dir("$LAYER") {
                 sh 'terraform plan'
             }
           }
         } else {
           stage('Build Apply') {
-            dir($LAYER) {
+            dir("$LAYER") {
                 sh 'echo "yes" | terraform apply'
             }
           }
@@ -35,13 +35,13 @@ node {
     if (params.ACTION == 'DELETE') {
         if (!params.CONFIRM) {
           stage('Delete Plan') {
-            dir($LAYER) {
+            dir("$LAYER") {
                 sh 'echo "no" | terraform destroy'
             }
           }
         } else {
           stage('Delete Apply') {
-            dir($LAYER) {
+            dir("$LAYER") {
                 sh 'echo "yes" | terraform destroy'
             }
           }
