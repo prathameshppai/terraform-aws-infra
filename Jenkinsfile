@@ -12,7 +12,7 @@ node {
       //cleanWs()
       dir("$LAYER") {
           sh 'terraform init'
-          sh "terraform workspace new $ENV"
+          sh "terraform workspace new $ENV || true"
       }
     }
   
