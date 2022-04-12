@@ -8,12 +8,12 @@ node {
       ])
     ])
 
-    stage('Initialization') {
-      //cleanWs()
-      dir("$LAYER") {
-          sh 'terraform init'
-          sh "terraform workspace new $ENV || true"
-      }
+    dir("$LAYER") {
+        stage('Initialization') {
+          //cleanWs()
+              sh 'terraform init'
+              sh "terraform workspace new $ENV || true"
+          }
     }
   
     if (params.ACTION == 'BUILD') {
