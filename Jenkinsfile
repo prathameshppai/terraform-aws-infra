@@ -8,6 +8,11 @@ node {
       ])
     ])
 
+    stage('Git checkout') {
+          cleanWs()
+          git url: 'https://github.com/prathameshppai/terraform-aws-infra.git'
+      }
+
     stage('Initialization') {
           sh "cd $LAYER"
           sh 'terraform init'
