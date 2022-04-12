@@ -17,7 +17,7 @@ node {
         sh """
           cd $LAYER
           terraform init
-          terraform workspace new $ENV || true
+          terraform workspace select $ENV
         """
       }
   
