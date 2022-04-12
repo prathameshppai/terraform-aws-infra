@@ -14,21 +14,27 @@ node {
       }
 
     stage('Initialization') {
-          sh "cd $LAYER"
-          sh 'terraform init'
-          sh "terraform workspace new $ENV || true"
+        sh """
+          cd $LAYER
+          terraform init
+          terraform workspace new $ENV || true
+        """
       }
   
     if (params.ACTION == 'BUILD') {
         if (!params.CONFIRM) {
           stage('Build Plan') {
-            sh "cd $LAYER"
-            sh 'terraform plan'
+            sh """
+              cd $LAYER
+              terraform plan
+            """
           }
         } else {
           stage('Build Apply') {
-            sh "cd $LAYER"
-            sh 'echo "yes" | terraform apply'
+            sh """
+              cd $LAYER
+              echo "yes" | terraform apply
+            """
           }
         }
     }
@@ -36,13 +42,17 @@ node {
     if (params.ACTION == 'DELETE') {
         if (!params.CONFIRM) {
           stage('Delete Plan') {
-            sh "cd $LAYER"
-            sh 'echo "no" | terraform destroy'
+            sh """
+              cd $LAYER
+              echo "no" | terraform destroy
+            """
           }
         } else {
           stage('Delete Apply') {
-            sh "cd $LAYER"
-            sh 'echo "yes" | terraform destroy'
+            sh """
+              cd $LAYER
+              echo "yes" | terraform destroy
+            """
           }
         }
     }
