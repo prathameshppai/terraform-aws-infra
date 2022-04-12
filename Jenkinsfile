@@ -44,7 +44,7 @@ node {
           stage('Delete Plan') {
             sh """
               cd $LAYER
-              echo "no" | terraform destroy
+              terraform plan -destroy
             """
           }
         } else {
