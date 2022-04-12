@@ -1,7 +1,7 @@
 terraform {
   backend "s3" {
     bucket = "terraform-storage-11042022"
-    key    = "Networking/terraform.tfstate"
+    key    = "Networking.tfstate"
     region = var.region
   }
 }
