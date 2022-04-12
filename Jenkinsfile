@@ -10,7 +10,7 @@ node {
 
     stage('Git checkout') {
           cleanWs()
-          git url: 'https://github.com/prathameshppai/terraform-aws-infra.git'
+          git url: 'https://github.com/prathameshppai/terraform-aws-infra.git', branch: 'main'
       }
 
     stage('Initialization') {
