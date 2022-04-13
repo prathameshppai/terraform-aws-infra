@@ -17,7 +17,7 @@ node {
         dir(params.LAYER) {
           sh "terraform init"
           try {
-            terraform workspace select $ENV
+            sh "terraform workspace select $ENV"
           } catch (err) {
             echo "Caught: ${err}"
             throw ${err}
