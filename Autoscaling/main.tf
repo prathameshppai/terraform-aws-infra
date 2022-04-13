@@ -37,10 +37,17 @@ resource "aws_autoscaling_group" "backend" {
     create_before_destroy = true
   }
 
-  tags = {
-    "Terraform" = "true"
-    "Environment" = "${terraform.workspace}"
+  tag {
+    key                   = "Environment"
+    value                 = "${terraform.workspace}-backend-instance"
+    propogation_at_launch = true
   }
+  tag {
+    key                   = "Terraform"
+    value                 = "true"
+    propogation_at_launch = true
+  }
+  
 }
 
 resource "aws_elb" "backend" {
