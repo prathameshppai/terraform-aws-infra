@@ -15,7 +15,9 @@ node {
 
     stage('Initialization') {
         dir(params.LAYER) {
-          sh "terraform init"
+          ansiColor('xterm') {
+            sh "terraform init"
+          }
           try {
             sh "terraform workspace select $ENV"
           } catch (err) {
