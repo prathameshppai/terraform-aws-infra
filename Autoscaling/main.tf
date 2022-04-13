@@ -38,8 +38,8 @@ resource "aws_autoscaling_group" "backend" {
   }
 
   tags = {
-    Terraform = "true"
-    Environment = "${terraform.workspace}"
+    "Terraform" = "true"
+    "Environment" = "${terraform.workspace}"
   }
 }
 
