@@ -20,7 +20,7 @@ node {
             terraform workspace select $ENV
           } catch (err) {
             echo "Caught: ${err}"
-            throw ${err{}
+            throw ${err}
           }           
         }
       }
