@@ -17,11 +17,11 @@ node {
         dir(params.LAYER) {
           ansiColor('xterm') {
             sh "terraform init"
-          }
-          try {
-            sh "terraform workspace select $ENV"
-          } catch (err) {
-            sh "terraform workspace new $ENV"
+            try {
+              sh "terraform workspace select $ENV"
+            } catch (err) {
+              sh "terraform workspace new $ENV"
+            }
           }
         }
       }
@@ -29,17 +29,21 @@ node {
     if (params.ACTION == 'BUILD') {
         if (!params.CONFIRM) {
           stage('Build Plan') {
-            sh """
-              cd $LAYER
-              terraform plan
-            """
+            ansiColor('xterm') {
+              sh """
+                cd $LAYER
+                terraform plan
+              """
+            }
           }
         } else {
           stage('Build Apply') {
-            sh """
-              cd $LAYER
-              echo "yes" | terraform apply
-            """
+            ansiColor('xterm') {
+              sh """
+                cd $LAYER
+                echo "yes" | terraform apply
+              """
+            }
           }
         }
     }
@@ -47,17 +51,21 @@ node {
     if (params.ACTION == 'DELETE') {
         if (!params.CONFIRM) {
           stage('Delete Plan') {
-            sh """
-              cd $LAYER
-              terraform plan -destroy
-            """
+            ansiColor('xterm') {
+              sh """
+                cd $LAYER
+                terraform plan -destroy
+              """
+            }
           }
         } else {
           stage('Delete Apply') {
-            sh """
-              cd $LAYER
-              echo "yes" | terraform destroy
-            """
+            ansiColor('xterm') {
+              sh """
+                cd $LAYER
+                echo "yes" | terraform destroy
+              """
+            }
           }
         }
     }
