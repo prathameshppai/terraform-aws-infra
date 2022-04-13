@@ -24,11 +24,6 @@ resource "aws_launch_configuration" "backend" {
   lifecycle {
     create_before_destroy = true
   }
-  
-  tags = {
-    Terraform = "true"
-    Environment = "${terraform.workspace}"
-  }
 }
 
 resource "aws_autoscaling_group" "backend" {
