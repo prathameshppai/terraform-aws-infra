@@ -30,7 +30,7 @@ resource "aws_autoscaling_group" "backend" {
   launch_configuration = aws_launch_configuration.backend.name
   min_size             = 1
   max_size             = 2
-  load_balancers       = [aws_elb.backend]
+  load_balancers       = [aws_elb.backend.name]
   lifecycle {
     create_before_destroy = true
   }
