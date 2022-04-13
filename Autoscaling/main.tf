@@ -18,14 +18,21 @@ data "terraform_remote_state" "Networking" {
 resource "aws_launch_configuration" "backend" {
   name_prefix   = "${terraform.workspace}-backend-"
   image_id      = "ami-00ee4df451840fa9d" #Linux CentOS AMI
+  key_name      = "PAI"
   instance_type = "t2.micro"
 
   lifecycle {
     create_before_destroy = true
   }
+  
+  tags = {
+    Terraform = "true"
+    Environment = "${terraform.workspace}"
+  }
 }
 
 resource "aws_autoscaling_group" "backend" {
+  vpc_zone_identifier  = data.terraform_remote_state.Networking.outputs.private_subnets
   name                 = "${terraform.workspace}-backend-asg"
   launch_configuration = aws_launch_configuration.backend.name
   min_size             = 1
@@ -34,11 +41,16 @@ resource "aws_autoscaling_group" "backend" {
   lifecycle {
     create_before_destroy = true
   }
+
+  tags = {
+    Terraform = "true"
+    Environment = "${terraform.workspace}"
+  }
 }
 
 resource "aws_elb" "backend" {
   name               = "${terraform.workspace}-backend-elb"
-  availability_zones = ["us-west-2a", "us-west-2b", "us-west-2c"]
+  availability_zones = data.terraform_remote_state.Networking.outputs.azs
 
   listener {
     instance_port     = 8000
@@ -61,6 +73,7 @@ resource "aws_elb" "backend" {
   connection_draining_timeout = 400
 
   tags = {
-    Name = "${terraform.workspace}-elb"
+    Terraform = "true"
+    Environment = "${terraform.workspace}"
   }
 }
