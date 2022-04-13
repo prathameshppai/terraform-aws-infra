@@ -43,7 +43,7 @@ resource "aws_autoscaling_group" "backend" {
   }
 
   tag {
-    key                   = "Environment"
+    key                   = "Name"
     value                 = "${terraform.workspace}-backend-instance"
     propagate_at_launch = true
   }
