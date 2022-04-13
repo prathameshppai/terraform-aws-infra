@@ -26,8 +26,8 @@ resource "aws_launch_configuration" "backend" {
   }
   
   root_block_device {
-    volume_type  "gp2"
-    encrypted = true
+    volume_type = "gp2"
+    encrypted   = true
   }
 }
 
