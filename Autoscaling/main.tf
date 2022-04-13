@@ -68,7 +68,7 @@ resource "aws_elb" "backend" {
   connection_draining_timeout = 400
 
   tags = {
-    Terraform = "true"
-    Environment = "${terraform.workspace}"
+    "Terraform" = "true"
+    "Environment" = "${terraform.workspace}"
   }
 }
