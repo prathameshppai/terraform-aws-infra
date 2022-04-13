@@ -14,11 +14,15 @@ node {
       }
 
     stage('Initialization') {
-        sh """
-          cd $LAYER
-          terraform init
-          terraform workspace select $ENV
-        """
+        dir(params.LAYER) {
+          sh "terraform init"
+          try {
+            terraform workspace select $ENV
+          } catch (err) {
+            echo "Caught: ${err}"
+            throw ${err{}
+          }           
+        }
       }
   
     if (params.ACTION == 'BUILD') {
